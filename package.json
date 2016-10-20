@@ -1,0 +1,39 @@
+{
+  "name": "funk",
+  "version": "0.0.1",
+  "description": "A simple functional library",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register --recursive",
+    "test:watch": "npm run test -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trygvea/funk.git"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2",
+      "stage-2"
+    ]
+  },
+  "keywords": [],
+  "author": "Trygve Amundsen <trygve.amundsen@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-stage-2": "^6.17.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "chai": "^3.5.0",
+    "jshint": "^2.9.3",
+    "mocha": "^3.1.2"
+  },
+  "dependencies": {}
+}
