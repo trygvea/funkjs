@@ -1,1 +1,1 @@
-A very simple monad library
+# A very simple monad library
