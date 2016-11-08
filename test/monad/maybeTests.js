@@ -37,66 +37,85 @@ describe('Monad: maybe', () => {
 
     describe('for-comprehension', () => {
 
+        const addMaybes = (a, b) =>
+            forMaybe(function*() {
+                const v1 = yield a
+                const v2 = yield b
+                return just(v1+v2)
+            })
+
         it('should work on just(value)', () => {
             expect(
-                forMaybe(function*() {
-                    const v1 = yield just(1)
-                    const v2 = yield just(2)
-                    return v1+v2
-                })
-            ).to.equal(3)
+                addMaybes(just(1), just(2))
+            ).to.equal(
+                just(3)
+            )
         });
 
         it('should work on nothing', () => {
             expect(
-                forMaybe(function*() {
-                    const v1 = yield nothing
-                    const v2 = yield just(2)
-                    return v1+v2
-                })
-            ).to.equal(nothing)
+                addMaybes(nothing, just(2))
+            ).to.equal(
+                nothing
+            )
         });
 
         it('should work with values directly', () => {
             expect(
-                forMaybe(function*() {
-                    const v1 = yield 1
-                    const v2 = yield 2
-                    return v1+v2
-                })
-            ).to.equal(3)
+                addMaybes(1, 2)
+            ).to.equal(
+                just(3)
+            ).and.to.equal(
+                3
+            )
         });
 
         it('should work with null directly', () => {
             expect(
-                forMaybe(function*() {
-                    const v1 = yield null
-                    const v2 = yield 2
-                    return v1+v2
-                })
-            ).to.equal(nothing)
+                addMaybes(null, 2)
+            ).to.equal(
+                nothing
+            )
         });
 
-        it('surprisingly work with undefined!', () => {
+        it('surprisingly work with undefined! Is this good or bad?', () => {
             expect(
-                forMaybe(function*() {
-                    const v1 = yield undefined
-                    const v2 = yield 2
-                    return v1+v2
-                })
-            ).to.equal(nothing)
-        });
-
-        it('surprisingly work with nothing at all!', () => {
-            expect(
-                forMaybe(function*() {
-                    const v1 = yield
-                    const v2 = yield 2
-                    return v1+v2
-                })
-            ).to.equal(nothing)
+                addMaybes(undefined, 2)
+            ).to.equal(
+                nothing
+            )
         });
 
     });
+
+    describe('surprising, but useful connections', () => {
+
+        it('nothing is null', () => {
+            expect(
+                nothing
+            ).to.equal(
+                null
+            )
+        });
+
+        it('just(nothing) is the same as nothing', () => {
+            expect(
+                just(nothing)
+            ).to.equal(
+                nothing
+            )
+        });
+
+        it('just(something) is the same as something', () => {
+            expect(
+                just(3.14)
+            ).to.equal(
+                3.14
+            )
+        });
+
+    });
+
+
 
 });

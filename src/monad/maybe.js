@@ -13,6 +13,8 @@ export const nothing = null
 const chainJust = (m, f) => f(m)
 const chainNothing = () => nothing
 export const chainMaybe = (m, f) =>
-    m == nothing ? chainNothing(m, f) : chainJust(m,f)
+    m == nothing
+        ? chainNothing(m, f)
+        : chainJust(m,f)
 
 export const forMaybe = forComprehension(chainMaybe)
